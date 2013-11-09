@@ -7,10 +7,12 @@ namespace GameOfLife
 {
     public class World
     {
+        int generation;
         List<Tuple<int, int>> livingCells = new List<Tuple<int, int>>();
 
         public void Print(IPrinter printer)
         {
+            printer.PrintRow("Generation: " + generation);
             if (livingCells.None())
             {
                 printer.PrintRow("-");
@@ -34,6 +36,15 @@ namespace GameOfLife
         public void AddLivingCell(int row, int column)
         {
             livingCells.Add(new Tuple<int, int>(row, column));
+        }
+
+        public void Evolve()
+        {
+            generation++;
+            if (livingCells.Count < 3)
+            {
+                livingCells = new List<Tuple<int, int>>();
+            }
         }
     }
 }
